@@ -31,6 +31,8 @@ RCSID("$Id$")
 #include <json/json.h>
 #include <curl/curl.h>
 
+#define MAX_URI_LEN 1024
+
 typedef struct rlm_remotedb_t {
 	char	*ip;
 	int	port;
@@ -148,13 +150,13 @@ remotedb_authorize(void *instance, REQUEST *request)
         rlm_remotedb_t *data = (rlm_remotedb_t *) instance;
 
         char mac[1024] = "";
-	char uri[1024] = "";
+	char uri[MAX_URI_LEN] = "";
 
         radius_xlat(mac, 1024, "%{Calling-Station-Id}", request, NULL);
                 
         radlog(L_DBG, "Search with following options : mac address = %s, username = %s\n", mac, request->username->vp_strvalue);
         
-	sprintf(uri, "http://%s:%d%s/authenticate?login=%s&mac=%s", data->ip, data->port, data->base, request->username->vp_strvalue, mac);
+	snprintf(uri, MAX_URI_LEN, "http://%s:%d%s/authenticate?login=%s&mac=%s", data->ip, data->port, data->base, request->username->vp_strvalue, mac);
         
         radlog(L_DBG, "Calling %s\n", uri);
 	
