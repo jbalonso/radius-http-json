@@ -21,12 +21,12 @@
  * Copyright 2010 Guillaume Rose <guillaume.rose@gmail.com>
  */
 
-#include <freeradius-devel/ident.h>
+#include <freeradius/ident.h>
 RCSID("$Id$")
 
-#include <freeradius-devel/radiusd.h>
-#include <freeradius-devel/modules.h>
-#include <freeradius-devel/sysutmp.h>
+#include <freeradius/radiusd.h>
+#include <freeradius/modules.h>
+#include <freeradius/sysutmp.h>
 
 #include <json/json.h>
 #include <curl/curl.h>
